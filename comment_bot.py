@@ -10,6 +10,7 @@ from config import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SEC
 
 
 class TwitterAPI:
+
     def __init__(self):
         listener = StListener()
         auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -29,7 +30,8 @@ class TwitterAPI:
     def reply(self, message, reply_id):
         try:
             print(message[:140])
-            self.api.update_status(status=message[:140],in_reply_to_status_id=reply_id)
+            self.api.update_status(
+                status=message[:140], in_reply_to_status_id=reply_id)
         except Exception as err:
             msg = "Reply Error: {0}".format(err)
             print(msg)
@@ -44,7 +46,7 @@ class StListener(tweepy.streaming.StreamListener):
         text = parsed_tweet['text'].split()
         user = "@" + parsed_tweet['user']['screen_name']
         if text[0].upper() == USERNAME_STRING.upper():
-            replyTweetSeed(text[1:4],parsed_tweet['id'],user)
+            replyTweetSeed(text[1:4], parsed_tweet['id'], user)
         return True
 
     def on_error(self, status):
@@ -56,15 +58,17 @@ def singleTweet():
     tweet = singleComment()
     twitter.tweet(tweet)
 
+
 def singleTweetSeed(seed):
     tweet = singleCommentSeed(seed)
     twitter.tweet(tweet)
 
-def replyTweetSeed(seed,reply_id,user):
-    tweet = user + " "  + singleCommentSeed(' '.join(seed))
+
+def replyTweetSeed(seed, reply_id, user):
+    tweet = user + " " + singleCommentSeed(' '.join(seed))
     twitter.reply(tweet, reply_id)
-    
-    
+
+
 twitter = TwitterAPI()
 
 if __name__ == "__main__":
@@ -73,9 +77,10 @@ if __name__ == "__main__":
     scheduler.start()
     twitter.stream.filter(track=[USERNAME_STRING], async=True)
     singleTweet()
-    try:
-        # This is here to simulate application activity (which keeps the main thread alive).
-        while True:
-            time.sleep(2)
-    except (KeyboardInterrupt, SystemExit):
-        scheduler.shutdown()
+    # Testing changes
+    # try:
+    #     # This is here to simulate application activity (which keeps the main thread alive).
+    #     while True:
+    #         time.sleep(2)
+    # except (KeyboardInterrupt, SystemExit):
+    #     scheduler.shutdown()

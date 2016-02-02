@@ -10,6 +10,7 @@ mc = MarkovChain(MARKOV_DB)
 def makeDatabase():
     with open(COMMENT_FILE, 'r') as f:
         mc.generateDatabase(f.read())
+        mc.dumpdb()
 
 def printComments(qty):
     for i in range(0, qty):

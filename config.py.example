@@ -1,0 +1,13 @@
+# Configuration variables
+MARKOV_DB = "./markov.db"
+COMMENT_FILE = 'comentarios.txt'
+LOG_FILE = 'bot_errors.txt'
+MIN_LEN = 80
+
+
+# Twitter
+USERNAME_STRING = '@ComentaristaABC'
+CONSUMER_KEY = ''
+CONSUMER_SECRET = ''
+ACCESS_TOKEN = ''
+ACCESS_TOKEN_SECRET = ''

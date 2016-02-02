@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 import os
+import sys
 import json
 import requests
 import sqlite3
 
+#TODO: USE CLI ARGS
 # FROM > TO
-FROM = int(1446416)
-TO = int(1347790)
-# https://graph.facebook.com/comments?id=http://abc.com.py/1447680.html&limit=500&fields=message
+FROM = int(1428885)#Last 1428865
+TO = int(1420000)#1347790
+
 MAX_ERRORS=4
 # path to sqlite database
 DB = "fbcomments.db"
-
-# connect db
-
 
 def connectDB():
     try:
@@ -45,8 +44,22 @@ def getUrls():
             "https://graph.facebook.com/comments?id=http://abc.com.py/%s.html&limit=500&fields=message" % page_id)
     return urls
 
+def dumpText():
+    conn = connectDB()
+    c = conn.cursor()
+    query = c.execute('select comment from comments')
+    comments = query.fetchall()
+    print("Parseando %d comentarios" % len(comments))
+    for comment in comments:
+        with open('comentarios.txt', 'a') as f:
+            f.write(comment[0].upper())
+    
+    raise SystemExit
+
 if __name__ == "__main__":
     error_count=0
+    if 'dumptext' in sys.argv:
+        dumpText()
     if not os.path.isfile(DB):
         createTable()
     urls = getUrls()

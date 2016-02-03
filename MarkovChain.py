@@ -109,10 +109,10 @@ class MarkovChain(object):
         # I'm assuming seeds tend to be rather short.
         words = seed.split()
         if (words[-1],) not in self.db:
-            pass
-            # The only possible way it won't work is if the last word is not known
-            #raise StringContinuationImpossibleError('Could not continue string: '
-            #                                        + seed)
+           return self._accumulateWithSeed(('',))
+           # The only possible way it won't work is if the last word is not known
+           #raise StringContinuationImpossibleError('Could not continue string: '
+           #                                        + seed)
         return self._accumulateWithSeed(words)
 
     def _accumulateWithSeed(self, seed):

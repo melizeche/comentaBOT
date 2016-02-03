@@ -112,7 +112,7 @@ class MarkovChain(object):
             pass
             # The only possible way it won't work is if the last word is not known
             #raise StringContinuationImpossibleError('Could not continue string: '
-                                                    + seed)
+            #                                        + seed)
         return self._accumulateWithSeed(words)
 
     def _accumulateWithSeed(self, seed):

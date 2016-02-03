@@ -46,7 +46,10 @@ class StListener(tweepy.streaming.StreamListener):
         text = parsed_tweet['text'].split()
         user = "@" + parsed_tweet['user']['screen_name']
         if text[0].upper() == USERNAME_STRING.upper():
-            replyTweetSeed(text[1:4], parsed_tweet['id'], user)
+            if len(text)>1:
+                replyTweetSeed(text[1:4], parsed_tweet['id'], user)
+            else:
+                replyTweet(parsed_tweet['id'], user)
         return True
 
     def on_error(self, status):
@@ -63,9 +66,12 @@ def singleTweetSeed(seed):
     tweet = singleCommentSeed(seed)
     twitter.tweet(tweet)
 
+def replyTweet(reply_id, user):
+    tweet = "%s %s" % (user, singleComment())
+    twitter.reply(tweet, reply_id)
 
 def replyTweetSeed(seed, reply_id, user):
-    tweet = user + " " + singleCommentSeed(' '.join(seed))
+    tweet = "%s %s" % (user, singleCommentSeed(' '.join(seed))) 
     twitter.reply(tweet, reply_id)
 
 

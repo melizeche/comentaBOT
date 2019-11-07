@@ -20,8 +20,8 @@ class TwitterAPI:
 
     def tweet(self, message):
         try:
-            print(message[:140])
-            self.api.update_status(status=message[:140])
+            print(message[:200])
+            self.api.update_status(status=message[:200])
         except Exception as err:
             msg = "Tweet Error: {0}".format(err)
             print(msg)
@@ -29,9 +29,9 @@ class TwitterAPI:
 
     def reply(self, message, reply_id):
         try:
-            print(message[:140])
+            print(message[:200])
             self.api.update_status(
-                status=message[:140], in_reply_to_status_id=reply_id)
+                status=message[:200], in_reply_to_status_id=reply_id)
         except Exception as err:
             msg = "Reply Error: {0}".format(err)
             print(msg)

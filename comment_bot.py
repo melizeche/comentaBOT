@@ -81,7 +81,7 @@ if __name__ == "__main__":
     scheduler = BackgroundScheduler()
     scheduler.add_job(singleTweet, 'interval', hours=2)
     scheduler.start()
-    twitter.stream.filter(track=[USERNAME_STRING], async=True)
+    twitter.stream.filter(track=[USERNAME_STRING], is_async=True)
     singleTweet()
     # Testing changes
     # try:

@@ -1,4 +1,4 @@
-requests==2.28.1
+requests==2.31.0
 tweepy==3.10.0
 APScheduler==3.0.5
 urllib3>=1.26.5 # not directly required, pinned by Snyk to avoid a vulnerability
